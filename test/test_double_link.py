@@ -8,10 +8,14 @@ class TestDoubleLinkInit(unittest.TestCase):
     def test_init_empty_list(self):
         list = DoubleLinkList()
         self.assertEqual(list.head, None)
+        self.assertEqual(list.size, 0)
+
 
     def test_init_with_head(self):
         list = DoubleLinkList("bob")
         self.assertEqual(list.head, "bob")
+        self.assertEqual(list.size, 1)
+
 
 class TestDoubleLinkAddTail(unittest.TestCase):
     def test_add_node_to_empty_list(self):
@@ -20,6 +24,7 @@ class TestDoubleLinkAddTail(unittest.TestCase):
 
         list.add_tail(first_node)
         self.assertEqual(list.head, first_node, 'first node in list not properly added')
+        self.assertEqual(list.size, 1)
 
     def test_add_second_node_to_list(self):
         list = DoubleLinkList()
@@ -32,6 +37,7 @@ class TestDoubleLinkAddTail(unittest.TestCase):
         self.assertEqual(list.tail.value, 'jim', 'tail not properly set')
         self.assertEqual(list.head.next.value, 'jim', 'head.next is not tail')
         self.assertEqual(list.tail.previous.value, 'bob', 'tail.previoius is not head')
+        self.assertEqual(list.size, 2)
 
     def test_add_more_nodes_to_list(self):
         list = DoubleLinkList()
@@ -45,6 +51,8 @@ class TestDoubleLinkAddTail(unittest.TestCase):
         self.assertEqual(list.tail.value, -3, 'new node not set to be tail')
         self.assertEqual(list.head.next.value, 8, 'overwrote tail instead of adding to end')
         self.assertEqual(list.tail.previous.value, 8, 'new node overwrote tail')
+        self.assertEqual(list.size, 3)
+
         
 class TestDoubleLinkAddHead(unittest.TestCase):
     def test_add_node_to_empty_list(self):
@@ -53,6 +61,7 @@ class TestDoubleLinkAddHead(unittest.TestCase):
 
         list.add_head(first_node)
         self.assertEqual(list.head, first_node, 'first node in list not properly added')
+        self.assertEqual(list.size, 1)
 
     def test_add_second_node_to_list(self):
         list = DoubleLinkList()
@@ -65,6 +74,7 @@ class TestDoubleLinkAddHead(unittest.TestCase):
         self.assertEqual(list.tail.value, 'bob', 'tail not properly set')
         self.assertEqual(list.head.next.value, 'bob', 'head.next is not tail')
         self.assertEqual(list.tail.previous.value, 'jim', 'tail.previoius is not head')
+        self.assertEqual(list.size, 2)
 
     def test_add_more_nodes_to_list(self):
         list = DoubleLinkList()
@@ -78,6 +88,10 @@ class TestDoubleLinkAddHead(unittest.TestCase):
         self.assertEqual(list.tail.value, 4, 'tail overwritten')
         self.assertEqual(list.head.next.value, 8, 'head not connected to tail')
         self.assertEqual(list.tail.previous.value, 8, 'tail not connected to head')
+        self.assertEqual(list.size, 3)
+
+class TestDoubleLinkRemove(unittest.TestCase):
+
 
     def test_remove_node_from_middle(self):
         list = DoubleLinkList()
@@ -89,6 +103,8 @@ class TestDoubleLinkAddHead(unittest.TestCase):
 
         self.assertEqual(list.head.next.value, 10, 'head does not point to tail')
         self.assertEqual(list.tail.previous.value, 4, 'tail does not point to head')
+        self.assertEqual(list.size, 2)
+
 
     def test_remove_head(self):
         list = DoubleLinkList()
@@ -101,6 +117,8 @@ class TestDoubleLinkAddHead(unittest.TestCase):
         self.assertEqual(list.head.value, 8, 'did not change head')
         self.assertEqual(list.head.next.value, 10, 'head not linked to tail')
         self.assertEqual(list.tail.previous.value, 8, 'tail not linked to head')
+        self.assertEqual(list.size, 2)
+
 
     def test_remove_tail(self):
         list = DoubleLinkList()
@@ -112,6 +130,52 @@ class TestDoubleLinkAddHead(unittest.TestCase):
 
         self.assertEqual(list.head.value, 4, 'did not change tail')
         self.assertEqual(list.tail.value, 8, 'head not linked to tail')
+        self.assertEqual(list.size, 2)
+
+
+class TestDoubleLinkRemoveAt(unittest.TestCase):
+
+
+    def test_remove_node_from_middle(self):
+        list = DoubleLinkList()
+        list.add_tail(Node(4))
+        list.add_tail(Node(8))
+        list.add_tail(Node(10))
+
+        list.remove_at(1)
+
+        self.assertEqual(list.head.next.value, 10, 'head does not point to tail')
+        self.assertEqual(list.tail.previous.value, 4, 'tail does not point to head')
+        self.assertEqual(list.size, 2)
+
+    def test_remove_head(self):
+        list = DoubleLinkList()
+        list.add_tail(Node(4))
+        list.add_tail(Node(8))
+        list.add_tail(Node(10))
+
+        list.remove_at(0)
+
+        self.assertEqual(list.head.value, 8, 'did not change head')
+        self.assertEqual(list.head.next.value, 10, 'head not linked to tail')
+        self.assertEqual(list.tail.previous.value, 8, 'tail not linked to head')
+        self.assertEqual(list.size, 2)
+
+
+    def test_remove_tail(self):
+        list = DoubleLinkList()
+        list.add_tail(Node(4))
+        list.add_tail(Node(8))
+        list.add_tail(Node(10))
+
+        list.remove_at(2)
+
+        self.assertEqual(list.head.value, 4, 'did not change tail')
+        self.assertEqual(list.head.next.value, 8, 'head not linked to tail')
+        self.assertEqual(list.tail.value, 8)
+        self.assertEqual(list.tail.previous.value, 4)
+        self.assertEqual(list.size, 2)
+
 
 
 class TestDoubleLinkToString(unittest.TestCase):
