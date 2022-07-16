@@ -1,3 +1,4 @@
+from tokenize import Double
 import unittest
 
 from data_structures.linked_list.DoubleLinkList import DoubleLinkList
@@ -77,6 +78,58 @@ class TestDoubleLinkAddHead(unittest.TestCase):
         self.assertEqual(list.tail.value, 4, 'tail overwritten')
         self.assertEqual(list.head.next.value, 8, 'head not connected to tail')
         self.assertEqual(list.tail.previous.value, 8, 'tail not connected to head')
+
+    def test_remove_node_from_middle(self):
+        list = DoubleLinkList()
+        list.add_tail(Node(4))
+        list.add_tail(Node(8))
+        list.add_tail(Node(10))
+
+        list.remove(8)
+
+        self.assertEqual(list.head.next.value, 10, 'head does not point to tail')
+        self.assertEqual(list.tail.previous.value, 4, 'tail does not point to head')
+
+    def test_remove_head(self):
+        list = DoubleLinkList()
+        list.add_tail(Node(4))
+        list.add_tail(Node(8))
+        list.add_tail(Node(10))
+
+        list.remove(4)
+
+        self.assertEqual(list.head.value, 8, 'did not change head')
+        self.assertEqual(list.head.next.value, 10, 'head not linked to tail')
+        self.assertEqual(list.tail.previous.value, 8, 'tail not linked to head')
+
+    def test_remove_tail(self):
+        list = DoubleLinkList()
+        list.add_tail(Node(4))
+        list.add_tail(Node(8))
+        list.add_tail(Node(10))
+
+        list.remove(10)
+
+        self.assertEqual(list.head.value, 4, 'did not change tail')
+        self.assertEqual(list.tail.value, 8, 'head not linked to tail')
+
+
+class TestDoubleLinkToString(unittest.TestCase):
+    def test_print_empty_list(self):
+        list = DoubleLinkList()
+        
+        self.assertEqual(str(list), '[]')
+
+    def test_print_empty_list(self):
+        list = DoubleLinkList()
+        list.add_tail(Node(7))
+        list.add_tail(Node(80))
+        list.add_tail(Node(-72))
+        list.add_tail(Node(0))
+        
+        self.assertEqual(str(list), '[7, 80, -72, 0]')
+
+    
 
 if __name__ == '__main__':
     unittest.main()
