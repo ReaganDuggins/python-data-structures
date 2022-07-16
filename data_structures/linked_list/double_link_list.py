@@ -1,5 +1,3 @@
 class DoubleLinkList:
-    def __init__(self):
-        print('yo')
-
-DoubleLinkList()
+    def __init__(self, head = None):
+        self.head = head
