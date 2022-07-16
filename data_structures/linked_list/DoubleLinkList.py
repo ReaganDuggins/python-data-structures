@@ -41,6 +41,51 @@ class DoubleLinkList:
         self.head = new_node
         self.size += 1
 
+    def add_after_index(self, new_node, index):
+        if self.head == None:
+            self.head = new_node
+            self.size += 1
+            return
+
+        if index < 0:
+            new_node.next = self.head
+            self.head = new_node
+            self.head.next.previous = self.head
+            self.size += 1
+            if self.tail == None:
+                self.tail = self.head.next
+            return
+
+        if index >= self.size:
+            if self.tail:
+                self.tail.next = new_node
+                new_node.previous = self.tail
+                self.tail = new_node
+                self.size += 1
+                return
+            self.tail = new_node
+            self.head.next = self.tail
+            self.tail.previous = self.head
+            self.size += 1
+            return
+
+        before = self.head
+        current = 0
+
+        while before:
+            if current == index:
+                after = before.next
+                if after:
+                    after.previous = new_node
+                new_node.next = after
+                new_node.previous = before
+                before.next = new_node
+                self.size += 1
+                return
+            before = before.next
+            current += 1
+            
+
     def remove(self, remove_me):
         if self.head.value == remove_me:
             self.head = self.head.next

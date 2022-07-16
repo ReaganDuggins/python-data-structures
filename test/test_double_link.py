@@ -176,6 +176,43 @@ class TestDoubleLinkRemoveAt(unittest.TestCase):
         self.assertEqual(list.tail.previous.value, 4)
         self.assertEqual(list.size, 2)
 
+class TestDoubleLinkAddAt(unittest.TestCase):
+    def test_add_node_to_empty_list(self):
+        list = DoubleLinkList()
+        first_node = Node(50)
+
+        list.add_after_index(first_node, 10)
+        self.assertEqual(list.head, first_node, 'first node in list not properly added')
+        self.assertEqual(list.size, 1)
+
+    def test_add_second_node_to_list(self):
+        list = DoubleLinkList()
+        list.add_after_index(Node('bob'), 0)
+
+        second_node = Node('jim')
+        list.add_after_index(second_node, 1)
+
+        self.assertEqual(list.head.value, 'bob', 'head was overwritten when adding second node')
+        self.assertEqual(list.tail.value, 'jim', 'tail not properly set')
+        self.assertEqual(list.head.next.value, 'jim', 'head.next is not tail')
+        self.assertEqual(list.tail.previous.value, 'bob', 'tail.previoius is not head')
+        self.assertEqual(list.size, 2)
+
+    def test_add_more_nodes_to_list(self):
+        list = DoubleLinkList()
+        list.add_after_index(Node(4), 0)
+        list.add_after_index(Node(8), 1)
+
+        third_node = Node(-3)
+        list.add_after_index(third_node, 2)
+
+        self.assertEqual(list.head.value, 4, 'head was overwritten when adding third node')
+        self.assertEqual(list.tail.value, -3, 'new node not set to be tail')
+        self.assertEqual(list.head.next.value, 8, 'overwrote tail instead of adding to end')
+        self.assertEqual(list.tail.previous.value, 8, 'new node overwrote tail')
+        self.assertEqual(list.size, 3)
+
+
 
 
 class TestDoubleLinkToString(unittest.TestCase):
