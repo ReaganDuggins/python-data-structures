@@ -7,6 +7,12 @@ class DoubleLinkList:
         if self.head == None:
             self.head = new_node
             return
+        if self.tail == None:
+            self.tail = new_node
+            self.tail.previous = self.head
+            self.head.next = self.tail
+            return
+        
+        self.tail.next = new_node
+        new_node.previous = self.tail
         self.tail = new_node
-        self.tail.previous = self.head
-        self.head.next = self.tail

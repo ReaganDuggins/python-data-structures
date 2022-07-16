@@ -32,5 +32,21 @@ class TestDoubleLinkAdd(unittest.TestCase):
         self.assertEqual(list.head.next.value, 'jim', 'head.next is not tail')
         self.assertEqual(list.tail.previous.value, 'bob', 'tail.previoius is not head')
 
+    def test_add_more_nodes_to_list(self):
+        list = DoubleLinkList()
+        list.add(Node(4))
+        list.add(Node(8))
+
+        third_node = Node(-3)
+        list.add(third_node)
+
+        self.assertEqual(list.head.value, 4, 'head was overwritten when adding third node')
+        self.assertEqual(list.tail.value, -3, 'new node not set to be tail')
+        self.assertEqual(list.head.next.value, 8, 'overwrote tail instead of adding to end')
+        self.assertEqual(list.tail.previous.value, 8, 'new node overwrote tail')
+
+        print(list.head.value, list.head.next.value, list.head.next.next.value, list.tail.value, list.tail.previous.value, list.tail.previous.previous.value)
+        
+
 if __name__ == '__main__':
     unittest.main()
