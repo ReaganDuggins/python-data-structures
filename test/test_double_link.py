@@ -20,5 +20,17 @@ class TestDoubleLinkAdd(unittest.TestCase):
         list.add(first_node)
         self.assertEqual(list.head, first_node, 'first node in list not properly added')
 
+    def test_add_second_node_to_list(self):
+        list = DoubleLinkList()
+        list.add(Node('bob'))
+
+        second_node = Node('jim')
+        list.add(second_node)
+
+        self.assertEqual(list.head.value, 'bob', 'head was overwritten when adding second node')
+        self.assertEqual(list.tail.value, 'jim', 'tail not properly set')
+        self.assertEqual(list.head.next.value, 'jim', 'head.next is not tail')
+        self.assertEqual(list.tail.previous.value, 'bob', 'tail.previoius is not head')
+
 if __name__ == '__main__':
     unittest.main()
