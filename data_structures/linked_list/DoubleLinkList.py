@@ -1,3 +1,5 @@
+from data_structures.linked_list.Node import Node
+
 class DoubleLinkList:
     def __init__(self, head = None):
         self.head = head
@@ -139,12 +141,30 @@ class DoubleLinkList:
             current = current.next
             current_index += 1
 
+    def reverse(self):
+        reversed_list = DoubleLinkList()
+        if self.size < 1:
+            return reversed_list
+        if self.size == 1:
+            reversed_list.add_head(Node(self.head.value))
+            return reversed_list
+
+        current = self.tail
+        while current:
+            node = Node(current.value)
+            reversed_list.add_tail(node)
+            current = current.previous
+        
+        return reversed_list
+
+
     def __str__(self):
         before = '['
         current = self.head
         while current:
             before += str(current.value) + ', '
             current = current.next
-        before = before[0:(len(before)-2)]
+        if len(before) > 2:
+            before = before[0:(len(before)-2)]
         before += ']'
         return before

@@ -212,7 +212,31 @@ class TestDoubleLinkAddAt(unittest.TestCase):
         self.assertEqual(list.tail.previous.value, 8, 'new node overwrote tail')
         self.assertEqual(list.size, 3)
 
+class TestDoubleLinkReverse(unittest.TestCase):
+    def test_reverse_empty(self):
+        list = DoubleLinkList()
 
+        rev = list.reverse()
+
+        self.assertEqual(str(rev), '[]')
+
+    def test_reverse_one_element(self):
+        list = DoubleLinkList()
+        list.add_tail(Node(5))
+
+        rev = list.reverse()
+
+        self.assertEqual(str(rev), '[5]')
+
+    def test_reverse_multiple_element(self):
+        list = DoubleLinkList()
+        list.add_tail(Node(5))
+        list.add_tail(Node('bob'))
+        list.add_tail(Node(7))
+
+        rev = list.reverse()
+
+        self.assertEqual(str(rev), '[7, bob, 5]')
 
 
 class TestDoubleLinkToString(unittest.TestCase):
