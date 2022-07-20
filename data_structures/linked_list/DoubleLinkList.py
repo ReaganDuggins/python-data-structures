@@ -167,4 +167,5 @@ class DoubleLinkList:
         if len(before) > 2:
             before = before[0:(len(before)-2)]
         before += ']'
+        before = 'head ' + before + ' tail'
         return before

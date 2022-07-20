@@ -217,7 +217,7 @@ class TestDoubleLinkReverse(unittest.TestCase):
 
         rev = list.reverse()
 
-        self.assertEqual(str(rev), '[]')
+        self.assertEqual(str(rev), 'head [] tail')
 
     def test_reverse_one_element(self):
         list = DoubleLinkList()
@@ -225,7 +225,7 @@ class TestDoubleLinkReverse(unittest.TestCase):
 
         rev = list.reverse()
 
-        self.assertEqual(str(rev), '[5]')
+        self.assertEqual(str(rev), 'head [5] tail')
 
     def test_reverse_multiple_element(self):
         list = DoubleLinkList()
@@ -235,14 +235,14 @@ class TestDoubleLinkReverse(unittest.TestCase):
 
         rev = list.reverse()
 
-        self.assertEqual(str(rev), '[7, bob, 5]')
+        self.assertEqual(str(rev), 'head [7, bob, 5] tail')
 
 
 class TestDoubleLinkToString(unittest.TestCase):
     def test_print_empty_list(self):
         list = DoubleLinkList()
         
-        self.assertEqual(str(list), '[]')
+        self.assertEqual(str(list), 'head [] tail')
 
     def test_print_empty_list(self):
         list = DoubleLinkList()
@@ -251,7 +251,7 @@ class TestDoubleLinkToString(unittest.TestCase):
         list.add_tail(Node(-72))
         list.add_tail(Node(0))
         
-        self.assertEqual(str(list), '[7, 80, -72, 0]')
+        self.assertEqual(str(list), 'head [7, 80, -72, 0] tail')
 
     
 
