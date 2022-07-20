@@ -15,3 +15,8 @@ class Stack(DoubleLinkList):
         popped = self.head.value
         self.remove(popped)
         return popped
+
+    def peek(self):
+        if self.head == None:
+            return None
+        return self.head.value

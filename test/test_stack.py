@@ -66,3 +66,16 @@ class TestStackPop(unittest.TestCase):
         popped = stack.pop()
         self.assertEqual(popped, 128512)
         self.assertEqual(stack.head.value, 8)
+
+class TestStackPeek(unittest.TestCase):
+    def test_peek_empty_is_none(self):
+        stack = Stack()
+
+        self.assertIsNone(stack.peek())
+
+    def test_peek_not_remove_head(self):
+        stack = Stack()
+        stack.push(Node(18))
+
+        peeked = stack.peek()
+        self.assertEqual(peeked, stack.head.value)
