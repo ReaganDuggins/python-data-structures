@@ -45,6 +45,42 @@ class BinarySearchTree:
             if BinarySearchTree.has_only_right_child(self.root):
                 self.root = self.root.right
                 return removed
+            
+            current = self.root.left
+            parent = self.root
+            # while current.right:
+            #     parent = current
+            #     current = current.right
+            self.root.value = current.value
+            parent.left = current.right
+            current = None
+            return removed
+            
+    def rotate_right(self, root):
+        is_tree_root = False
+        if root == self.root:
+            is_tree_root = True
+        pivot = root.left
+        root.left = pivot.right
+        pivot.right = root
+        root = pivot
+        if is_tree_root:
+            self.root = pivot
+
+    def rotate_left(self, root):
+        is_tree_root = False
+        if root == self.root:
+            is_tree_root = True
+        pivot = root.right
+        root.right = pivot.left
+        pivot.left = root
+        root = pivot
+        if is_tree_root:
+            self.root = pivot
+
+
+
+
 
     def has_only_left_child(node):
         return node.left != None and node.right == None

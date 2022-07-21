@@ -82,6 +82,33 @@ class TestBSTAdd(unittest.TestCase):
         self.assertEqual(tree.root.left.left.value, 15)
         self.assertEqual(tree.root.left.right.value, 25)
 
+class TestBSTRotations(unittest.TestCase):
+    def setUp(self):
+        self.tree = BinarySearchTree()
+        self.tree.add(33)
+        self.tree.add(10)
+        self.tree.add(5)
+        self.tree.add(15)
+        self.tree.add(50)
+        self.tree.add(40)
+        self.tree.add(70)
+
+    def test_rotate_right(self):
+        self.tree.rotate_right(self.tree.root)
+
+        self.assertEqual(self.tree.root.value, 10)
+        self.assertEqual(self.tree.root.left.value, 5)
+        self.assertEqual(self.tree.root.right.value, 33)
+        self.assertEqual(self.tree.root.right.left.value, 15)
+
+    def test_rotate_left(self):
+        self.tree.rotate_left(self.tree.root)
+
+        self.assertEqual(self.tree.root.value, 50)
+        self.assertEqual(self.tree.root.right.value, 70)
+        self.assertEqual(self.tree.root.left.value, 33)
+        self.assertEqual(self.tree.root.left.right.value, 40)
+
 class TestBSTRemove(unittest.TestCase):
     def setUp(self):
         self.tree = BinarySearchTree()
@@ -129,3 +156,15 @@ class TestBSTRemove(unittest.TestCase):
         self.assertEqual(removed, 10)
         self.assertEqual(tree.root.value, 20)
         self.assertIsNone(tree.root.right)
+
+    # def test_remove_root_with_both_children_1_generation(self):
+    #     tree = BinarySearchTree()
+    #     tree.add(10)
+    #     tree.add(20)
+    #     tree.add(5)
+
+    #     removed = tree.remove(10)
+
+    #     self.assertEqual(removed, 10)
+    #     self.assertEqual(tree.root.value, 5)
+    #     self.assertEqual(tree.root.left.value, 20)
